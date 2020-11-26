@@ -6,31 +6,31 @@
 
 ### 具体做法：
 
-**前期：** 准备工作（包括域名申请，用cloudflare添加site并 绑定VPS的IP）可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
+**前期：** 准备工作（包括[域名申请](https://my.freenom.com/)，然后用[cloudflare](https://cloudflare.com/)添加site，并绑定VPS的IP）。不熟悉的可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
 
 
 
 ![QQ截圖20201126111156.png](https://i.loli.net/2020/11/26/bR8K2Zz9lxwjitP.png)
 
-
+添加ssl证书，点击[链接](https://dash.cloudflare.com/profile/api-tokens)
 
 ![QQ截圖20201126111653.png](https://i.loli.net/2020/11/26/zWipNHDyu9IsVwr.png)
 
 
 
-**中期：**VPS 安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)， 需要用到下面这个一键安装配置脚本：
+**中期：**VPS 操作系统还是推荐Debian或者Ubuntu，内核越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，需要用到下面这个一键安装配置脚本：
 
 ```shell
 curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_tls1.3.sh && chmod +x v2ray_ws_tls1.3.sh && ./v2ray_ws_tls1.3.sh
 ```
 
-这个脚本运行的时候只需要你填入申请的域名，后面就不需要操心了，等待5分钟。 
+这个脚本运行的时候只需要你填入申请的域名，后面就不需要操心了，耐心等待10分钟。 
 
 当配置信息输出到终端上后，我们就要配置客户端信息了。 
 
 
 
-本人比较喜欢用路由器客户端，因为这样可以一劳永逸，让每个客户端设备都能科学上网。 
+本人比较喜欢用路由器客户端，因为这样可以一劳永逸，让局域网下面的每个设备都能科学上网。 
 
 所用到的路由器都是 koolshare 改版的梅林系统，版本号为380.70_0-X7.9.1， 使用的科学上网插件是fancyss 开发的[shadowsocks ](https://hq450.github.io/fancyss/)(开发者已经好久没有更新了)， 对于SS/SSR完全没问题，但是对于v2ray, 由于内在的v2ray core 的版本太老，（自动更新只能更新到 4.22.1） 尽管在配置窗口里面可以填写信息，但是一旦保存并应用，不是提示“V2Ray配置文件没有通过测试，请检查设置!!! ” 就是开启后“国外连接”出现红色的大叉。 
 
@@ -82,7 +82,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 ![QQ截圖20201119113215.png](https://i.loli.net/2020/11/26/gXYbtmKdvn9E6Ru.png)
 
-**总结下来就这几行代码：**
+**上述两个步骤总结下来就这几行代码：**
 
 ```shell
 wget https://github.com/cary-sas/IBMYes/raw/master/v2ray
@@ -105,13 +105,15 @@ sed -i 's/\\"serverName\\"\: null/\\"serverName\\"\: \\"\$ss_basic_v2ray_network
 
 
 
-
-
 ### 一些后续优化
 
 #### CF中worker反代域名
 
-在cloudflare.com中创建一个worker, 使用下面的代码，替换其中的hostname 为你申请到的域名。保存并部署。
+在cloudflare.com中创建一个worker， 编辑，使用下面的代码，替换其中的hostname 为你申请到的域名。保存并部署。
+
+![QQ截圖20201126140123.png](https://i.loli.net/2020/11/26/1kijWHUBpyGtdsA.png)
+
+![QQ截圖20201126140447.png](https://i.loli.net/2020/11/26/Ts9PIqZUWMXmRH2.png)
 
 ```
 addEventListener(
@@ -130,7 +132,7 @@ event. respondWith(
 
 #### 优选IP
 
-方法很多，我是使用的[这个](https://github.com/badafans/better-cloudflare-ip)工具，Linux的不能在梅林路由器上直接运行，所以还是老老实实用windows 版的，使用的时候建议关闭科学上网插件，以免受到干扰。 
+电信用户推荐使用。方法很多，我是使用的[这个](https://github.com/badafans/better-cloudflare-ip)工具，Linux的不能在梅林路由器上直接运行，所以还是老老实实用windows 版的，使用的时候建议关闭科学上网插件，以免受到干扰。 
 
 具体操作自己看使用说明吧。 
 
