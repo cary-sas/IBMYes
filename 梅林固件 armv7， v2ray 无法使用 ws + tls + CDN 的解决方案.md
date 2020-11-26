@@ -6,7 +6,17 @@
 
 ### 具体做法：
 
-**前期：** 准备工作（包括域名申请，用cloudflare 绑定VPS的IP）可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
+**前期：** 准备工作（包括域名申请，用cloudflare添加site并 绑定VPS的IP）可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
+
+
+
+![QQ截圖20201126111156.png](https://i.loli.net/2020/11/26/bR8K2Zz9lxwjitP.png)
+
+
+
+![QQ截圖20201126111653.png](https://i.loli.net/2020/11/26/zWipNHDyu9IsVwr.png)
+
+
 
 **中期：**VPS 安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)， 需要用到下面这个一键安装配置脚本：
 
@@ -14,9 +24,11 @@
 curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_tls1.3.sh && chmod +x v2ray_ws_tls1.3.sh && ./v2ray_ws_tls1.3.sh
 ```
 
-这个脚本运行的时候你只需要填入申请的域名，后面就不需要操心了，等待5分钟。 
+这个脚本运行的时候只需要你填入申请的域名，后面就不需要操心了，等待5分钟。 
 
 当配置信息输出到终端上后，我们就要配置客户端信息了。 
+
+
 
 本人比较喜欢用路由器客户端，因为这样可以一劳永逸，让每个客户端设备都能科学上网。 
 
@@ -42,7 +54,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
    压缩之后的文件体积大概是源文件的35%左右。
 
-![img](https://1.bp.blogspot.com/-dvo_h0uXmNY/X7YaD_UTL_I/AAAAAAAAPCA/wlpE9kBCI8UT09FKbTS6kjT7aAD7vXvNgCLcBGAsYHQ/w658-h347/QQ%25E6%2588%25AA%25E5%259C%259620201119150731.png)
+![QQ截圖20201119150731.png](https://i.loli.net/2020/11/26/18oZxsGetJlVXB6.png)
 
 新手推荐使用[winscp](https://winscp.net/eng/download.php)操作去替换v2ray和v2ctl文件， 即
 
@@ -68,7 +80,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 贴一张流程图以便理解
 
-[![img](https://1.bp.blogspot.com/-t2TxAU7axVY/X7XndnDR4EI/AAAAAAAAPB0/q7hnczs7aJo1FPNWuGtt5vDZZNYEezo9gCLcBGAsYHQ/w662-h226/QQ%25E6%2588%25AA%25E5%259C%259620201119113215.png)](https://1.bp.blogspot.com/-t2TxAU7axVY/X7XndnDR4EI/AAAAAAAAPB0/q7hnczs7aJo1FPNWuGtt5vDZZNYEezo9gCLcBGAsYHQ/s1341/QQ%E6%88%AA%E5%9C%9620201119113215.png)
+![QQ截圖20201119113215.png](https://i.loli.net/2020/11/26/gXYbtmKdvn9E6Ru.png)
 
 **总结下来就这几行代码：**
 
@@ -89,13 +101,34 @@ sed -i 's/\\"serverName\\"\: null/\\"serverName\\"\: \\"\$ss_basic_v2ray_network
 
 记得，如果你只是单纯地使用你VPS所在的域名，那就只需要在第一行“地址”里面填上域名地址，如果你需要套用CF worker的话， 第一行“地址”需要填上 “cloudflare.com” 或者优选IP， 然后在“伪装域名(host)”里面填上CF中的worker域名。
 
-[![img](https://1.bp.blogspot.com/-tzcL-Ka6Tcg/X7T7WI-LyAI/AAAAAAAAPBo/Kp931-a-FvYSjhsZ8yvTFTAvGcQFAAD7QCLcBGAsYHQ/w587-h590/QQ%25E6%2588%25AA%25E5%259C%259620201118184451.png)](https://1.bp.blogspot.com/-tzcL-Ka6Tcg/X7T7WI-LyAI/AAAAAAAAPBo/Kp931-a-FvYSjhsZ8yvTFTAvGcQFAAD7QCLcBGAsYHQ/s759/QQ%E6%88%AA%E5%9C%9620201118184451.png)
+![QQ截圖20201118184451.png](https://i.loli.net/2020/11/26/Zy8gU4zOaAG9slj.png)
 
 
 
 
 
-#### 关于优选IP
+### 一些后续优化
+
+#### CF中worker反代域名
+
+在cloudflare.com中创建一个worker, 使用下面的代码，替换其中的hostname 为你申请到的域名。保存并部署。
+
+```
+addEventListener(
+"fetch",event => {
+let url=new URL(event.request.url);
+url.hostname="xxx.herokuapp.com";
+let request=new Request(url,event.request);
+event. respondWith(
+ fetch(request)
+ )
+ }
+)
+```
+
+
+
+#### 优选IP
 
 方法很多，我是使用的[这个](https://github.com/badafans/better-cloudflare-ip)工具，Linux的不能在梅林路由器上直接运行，所以还是老老实实用windows 版的，使用的时候建议关闭科学上网插件，以免受到干扰。 
 
@@ -103,6 +136,10 @@ sed -i 's/\\"serverName\\"\: null/\\"serverName\\"\: \\"\$ss_basic_v2ray_network
 
 
 
-关于优选IP的思考：
+<u>采用上面两步可以在电信网络下大大提高翻墙的速度。</u>
+
+
+
+##### 关于优选IP的思考：
 
 手动筛选IP有点麻烦，有没有办法可以在科学上网插件中让某个DNS 自动解析一个最好的IP呢？
