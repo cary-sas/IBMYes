@@ -12,11 +12,6 @@
 
 ![QQ截圖20201126111156.png](https://i.loli.net/2020/11/26/bR8K2Zz9lxwjitP.png)
 
-添加ssl证书，点击[链接](https://dash.cloudflare.com/profile/api-tokens)
-
-![QQ截圖20201126111653.png](https://i.loli.net/2020/11/26/zWipNHDyu9IsVwr.png)
-
-
 
 **中期：**VPS 操作系统还是推荐Debian或者Ubuntu，内核越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，需要用到下面这个一键安装配置脚本：
 
