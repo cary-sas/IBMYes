@@ -14,7 +14,7 @@
 
   
 
-**中期：**VPS 操作系统还是推荐Debian或者Ubuntu，内核越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，读者只需要用到下面这个一键安装配置脚本：
+**中期：** VPS 操作系统还是推荐Debian或者Ubuntu，版本越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，读者只需要用到下面这个一键安装配置脚本：
 
 ```shell
 curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_tls1.3.sh && chmod +x v2ray_ws_tls1.3.sh && ./v2ray_ws_tls1.3.sh
