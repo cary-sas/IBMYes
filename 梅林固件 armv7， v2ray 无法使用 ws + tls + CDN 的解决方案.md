@@ -12,14 +12,19 @@
 
 ![QQ截圖20201126111156.png](https://i.loli.net/2020/11/26/bR8K2Zz9lxwjitP.png)
 
+添加ssl证书，点击[链接](https://dash.cloudflare.com/profile/api-tokens)
 
-**中期：**VPS 操作系统还是推荐Debian或者Ubuntu，内核越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，需要用到下面这个一键安装配置脚本：
+![QQ截圖20201126111653.png](https://i.loli.net/2020/11/26/zWipNHDyu9IsVwr.png)
+
+
+
+**中期：**VPS 操作系统还是推荐Debian或者Ubuntu，内核越新越好。安装配置 v2ray, nigix 可以参考[这里](https://ssr.tools/1317)，读者只需要用到下面这个一键安装配置脚本：
 
 ```shell
 curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_tls1.3.sh && chmod +x v2ray_ws_tls1.3.sh && ./v2ray_ws_tls1.3.sh
 ```
 
-这个脚本运行的时候只需要你填入申请的域名，后面就不需要操心了，耐心等待10分钟。 
+脚本运行的时候只需要填入申请的域名，后面就全自动化了，耐心等待10分钟。 
 
 当配置信息输出到终端上后，我们就要配置客户端信息了。 
 
@@ -27,7 +32,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 本人比较喜欢用路由器客户端，因为这样可以一劳永逸，让局域网下面的每个设备都能科学上网。 
 
-所用到的路由器都是 koolshare 改版的梅林系统，版本号为380.70_0-X7.9.1， 使用的科学上网插件是fancyss 开发的[shadowsocks ](https://hq450.github.io/fancyss/)(开发者已经好久没有更新了)， 对于SS/SSR完全没问题，但是对于v2ray, 由于内在的v2ray core 的版本太老，（自动更新只能更新到 4.22.1） 尽管在配置窗口里面可以填写信息，但是一旦保存并应用，不是提示“V2Ray配置文件没有通过测试，请检查设置!!! ” 就是开启后“国外连接”出现红色的大叉。 
+所用到的路由器都是 koolshare 改版的梅林系统，版本号为380.70_0-X7.9.1， 使用的科学上网插件是fancyss 开发的[shadowsocks ](https://hq450.github.io/fancyss/)(开发者已经好久没有更新了)， 对于SS/SSR完全没问题，但是对于v2ray, 由于内在的v2ray core 的版本太老，（自动更新只能更新到 4.22.1） 这就导致尽管你的信息填写无误，但是一旦保存并应用，不是提示“V2Ray配置文件没有通过测试，请检查设置!!! ” 就是开启后“国外连接”出现红色的大叉。 
 
 经过不懈的研究和努力，这个问题终于得到了解决。
 
@@ -35,7 +40,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 #### 1，手动更新路由器中的v2ray core，也就是v2ray和v2ctl两个二进制文件。
 
-方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。切记，不要使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载使用[这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
+方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。切记**不要**使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载使用[这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
 
 
 
@@ -82,6 +87,8 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 ```shell
 wget https://github.com/cary-sas/IBMYes/raw/master/v2ray
 wget https://github.com/cary-sas/IBMYes/raw/master/v2ctl
+chmod 0755 v2ctl
+chmod 0755 v2ray
 mv v2ctl /jffs/.koolshare/bin
 mv v2ray /jffs/.koolshare/bin
 
@@ -127,13 +134,13 @@ event. respondWith(
 
 #### 优选IP
 
-电信用户推荐使用。方法很多，我是使用的[这个](https://github.com/badafans/better-cloudflare-ip)工具，Linux的不能在梅林路由器上直接运行，所以还是老老实实用windows 版的，使用的时候建议关闭科学上网插件，以免受到干扰。 
+电信用户推荐使用。方法很多，我是使用的[这个](https://github.com/badafans/better-cloudflare-ip)工具，Linux版的不能在梅林路由器上直接运行，所以还是老老实实用windows 版的，使用的时候建议关闭科学上网插件，以免受到干扰。 
 
 具体操作自己看使用说明吧。 
 
 
 
-<u>采用上面两步可以在电信网络下大大提高翻墙的速度。</u>
+优化后可以在电信网络下大大提高翻墙的速度。
 
 
 
