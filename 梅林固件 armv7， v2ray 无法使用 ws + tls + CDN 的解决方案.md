@@ -6,7 +6,7 @@
 
 ### 具体做法：
 
-**前期：** 准备工作（包括[域名申请](https://my.freenom.com/)，然后用[cloudflare](https://cloudflare.com/)添加site，并绑定VPS的IP）。不熟悉的可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
+**前期：** 准备工作（包括：1，[域名申请](https://my.freenom.com/)，2，用[cloudflare](https://cloudflare.com/)添加site，并绑定VPS的IP）。不熟悉的可以参考[这里](https://www.v2rayssr.com/v2raynginx.html)。
 
 
 
@@ -36,9 +36,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 #### 1，手动更新路由器中的v2ray core，也就是v2ray和v2ctl两个二进制文件。
 
-方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。切记**不要**使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载使用[这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
-
-
+~~方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。~~切记**不要**使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
 
 下载后建议用UPX压缩v2ray二进制文件以减小体积，然后再去替换老版本的文件。方法如下：
 
