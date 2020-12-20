@@ -36,7 +36,7 @@ curl -O https://raw.githubusercontent.com/atrandys/v2ray-ws-tls/master/v2ray_ws_
 
 #### 1，手动更新路由器中的v2ray core，也就是v2ray和v2ctl两个二进制文件。
 
-~~方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。~~ 切记**不要**使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载[这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
+~~方法介绍在[这里](https://github.com/hq450/fancyss/issues/1028)。~~切记**不要**使用v2ray core[官方仓库](https://github.com/v2ray/v2ray-core/releases/tag/v4.31.0)下的 Linux-armv7a安装包，而是去尝试armv5的，或者直接下载这个](https://github.com/YUMEYA/v2ray-core/releases/)现成的 。
 
 下载后建议用UPX压缩v2ray二进制文件以减小体积，然后再去替换老版本的文件。方法如下：
 
@@ -95,7 +95,12 @@ sed -i 's/\\"serverName\\"\: null/\\"serverName\\"\: \\"\$ss_basic_v2ray_network
 
 #### 路由器里添加v2ray节点信息
 
-记得，如果你只是单纯地使用你VPS所在的域名，那就只需要在第一行“地址”里面填上域名地址，如果你需要套用CF worker的话， 第一行“地址”需要填上 “cloudflare.com” 或者优选IP， 然后在“伪装域名(host)”里面填上CF中的worker域名。
+记得，如果你只是单纯地使用你VPS所在的域名，那就只需要在第一行“地址”里面填上域名地址，如果你需要套用CF 的IP的话， 第一行“地址”需要填上 “cloudflare.com” 或者‘1.1.1.1’或者优选IP， 然后在“伪装域名(host)”里面填上你VPS的域名。
+
+以上方法来自TG，
+
+> 更新一下ws代理使用cloudflare的优选ip方法：
+> 域名使用cf的dns解析，然后客户端ip填写你找到的cf ip，伪装域名填你的域名就可以了。（不管点不点亮旁边的小云朵都可以）而不用去worker反代。
 
 ![QQ截圖20201118184451.png](https://i.loli.net/2020/11/26/Zy8gU4zOaAG9slj.png)
 
@@ -103,9 +108,9 @@ sed -i 's/\\"serverName\\"\: null/\\"serverName\\"\: \\"\$ss_basic_v2ray_network
 
 ### 一些后续优化
 
-#### CF中worker反代域名
+#### ~~CF中worker反代域名~~  
 
-在cloudflare.com中创建一个worker， 编辑，使用下面的代码，替换其中的hostname 为你申请到的域名。保存并部署。
+~~在cloudflare.com中创建一个worker， 编辑，使用下面的代码，替换其中的hostname 为你申请到的域名。保存并部署。~~
 
 ![QQ截圖20201126140123.png](https://i.loli.net/2020/11/26/1kijWHUBpyGtdsA.png)
 
@@ -140,4 +145,6 @@ event. respondWith(
 
 ##### 关于优选IP的思考：
 
-手动筛选IP有点麻烦，有没有办法可以在科学上网插件中让某个DNS 自动解析一个最好的IP呢？
+~~手动筛选IP有点麻烦，有没有办法可以在科学上网插件中让某个DNS 自动解析一个最好的IP呢？~~  
+
+据考证DNS解析是静态的，故此方法是行不通的。
